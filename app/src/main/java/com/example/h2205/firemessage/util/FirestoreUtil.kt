@@ -12,7 +12,7 @@ object FirestoreUtil {
     private val currentUserDocRef: DocumentReference get() =
         firestoreInstence.document("users/${FirebaseAuth.getInstance().uid ?: throw NullPointerException("UID is null")}")
 
-    fun initCurrnetUserIfFirstTime(onComplete: () -> Unit){
+    fun initCurrentUserIfFirstTime(onComplete: () -> Unit){
 
         currentUserDocRef.get().addOnSuccessListener { documentSnapshot ->
             if (!documentSnapshot.exists()){
