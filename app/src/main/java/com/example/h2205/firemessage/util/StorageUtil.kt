@@ -20,8 +20,10 @@ object StorageUtil {
             onSuccess( ref.path )
         }
 
-        fun pathToReferance(path: String) = storageInstance.getReference(path)
-
     }
+
+
+    fun pathToReference(path: String) = storageInstance.getReference(path)
+
 
 }

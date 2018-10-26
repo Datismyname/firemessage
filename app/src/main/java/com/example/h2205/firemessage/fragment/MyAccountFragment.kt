@@ -13,19 +13,16 @@ import android.view.ViewGroup
 
 import com.example.h2205.firemessage.R
 import com.example.h2205.firemessage.SignInActivity
+import com.example.h2205.firemessage.glide.GlideApp
 import com.example.h2205.firemessage.util.FirestoreUtil
 import com.example.h2205.firemessage.util.StorageUtil
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.fragment_my_account.*
+import kotlinx.android.synthetic.main.fragment_my_account.view.*
 import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.newTask
 import org.jetbrains.anko.support.v4.intentFor
 import java.io.ByteArrayOutputStream
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 
 class MyAccountFragment : Fragment() {
@@ -41,7 +38,8 @@ class MyAccountFragment : Fragment() {
 
         view.apply {
 
-            imageView_profile_picture.setOnClickListener {
+            iv_profile_picture.setOnClickListener {
+
 
                 val intent = Intent().apply {
                     type = "image/*"
@@ -67,7 +65,7 @@ class MyAccountFragment : Fragment() {
 
             }
 
-            btn_save.setOnClickListener {
+            btn_sign_out.setOnClickListener {
                 AuthUI.getInstance().signOut(this@MyAccountFragment.context!!)
                         .addOnCompleteListener{
                     startActivity( intentFor<SignInActivity>().newTask().clearTask() )
@@ -76,6 +74,7 @@ class MyAccountFragment : Fragment() {
 
 
         }
+
 
         return view
 
@@ -93,13 +92,38 @@ class MyAccountFragment : Fragment() {
 
             selectedImageBytes = outputStream.toByteArray()
 
-            //TODO: Load picture
+            GlideApp.with(this)
+                    .load(selectedImageBytes)
+                    .into(iv_profile_picture)
 
             pictureJustChanged = true
 
 
         }
 
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        FirestoreUtil.getCurrentUser { user ->
+
+            if (this@MyAccountFragment.isVisible){
+
+                editText_name.setText( user.name )
+                editText_bio.setText( user.bio )
+
+                if (!pictureJustChanged && !user.profilePicturePath.isNullOrEmpty()){
+                    GlideApp.with(this)
+                            .load(StorageUtil.pathToReference(user.profilePicturePath!!))
+                            .placeholder(R.drawable.ic_account_circle_black_24dp)
+                            .into(iv_profile_picture)
+                }
+
+            }
+
+        }
 
     }
 

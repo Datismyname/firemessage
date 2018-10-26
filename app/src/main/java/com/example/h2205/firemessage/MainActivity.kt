@@ -2,7 +2,9 @@ package com.example.h2205.firemessage
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import com.example.h2205.firemessage.fragment.MyAccountFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +23,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.navigation_my_account -> {
-                    //TODO: Show my account fragment
+                    replaceFragment( MyAccountFragment() )
                     true
                 }
 
@@ -29,4 +31,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun replaceFragment(fragment: Fragment){
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_layout, fragment)
+                .commit()
+    }
+
 }
