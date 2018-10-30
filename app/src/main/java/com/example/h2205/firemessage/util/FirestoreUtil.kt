@@ -2,10 +2,7 @@ package com.example.h2205.firemessage.util
 
 import android.content.Context
 import android.util.Log
-import com.example.h2205.firemessage.model.ChatChannel
-import com.example.h2205.firemessage.model.MessageType
-import com.example.h2205.firemessage.model.TextMessage
-import com.example.h2205.firemessage.model.User
+import com.example.h2205.firemessage.model.*
 import com.example.h2205.firemessage.recyclerview.item.PersonItem
 import com.example.h2205.firemessage.recyclerview.item.TextMessageItem
 import com.google.firebase.auth.FirebaseAuth
@@ -154,6 +151,14 @@ object FirestoreUtil {
 
 
                 }
+
+    }
+
+    fun sendMessage( message: Message, channelId: String ){
+
+        chatChannelsCollectionReference.document( channelId )
+                .collection( "messages" )
+                .add( message )
 
     }
 
