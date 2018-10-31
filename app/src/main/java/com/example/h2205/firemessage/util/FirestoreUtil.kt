@@ -3,6 +3,7 @@ package com.example.h2205.firemessage.util
 import android.content.Context
 import android.util.Log
 import com.example.h2205.firemessage.model.*
+import com.example.h2205.firemessage.recyclerview.item.ImageMessageItem
 import com.example.h2205.firemessage.recyclerview.item.PersonItem
 import com.example.h2205.firemessage.recyclerview.item.TextMessageItem
 import com.google.firebase.auth.FirebaseAuth
@@ -52,7 +53,7 @@ object FirestoreUtil {
 
         currentUserDocRef.get().addOnSuccessListener {
 
-            onComplete( it.toObject( User::class.java ) )
+            onComplete(it.toObject( User::class.java )!!)
 
         }
     }
@@ -69,10 +70,10 @@ object FirestoreUtil {
 
                     val items = mutableListOf<Item>()
 
-                    querySnapshot.documents.forEach {
+                    querySnapshot!!.documents.forEach {
 
                         if ( it.id != FirebaseAuth.getInstance().currentUser?.uid ){
-                            items.add( PersonItem( it.toObject(User::class.java), it.id, context ) )
+                            items.add( PersonItem(it.toObject(User::class.java)!!, it.id, context ) )
                         }
 
                     }
@@ -135,14 +136,16 @@ object FirestoreUtil {
 
                     val items = mutableListOf<Item>()
 
-                    querySnapshot.forEach {
+                    querySnapshot!!.forEach {
 
                         if ( it["type"] == MessageType.TEXT ){
 
                             items.add( TextMessageItem( it.toObject(TextMessage::class.java), context ) )
 
                         }else{
-                            TODO("add image message")
+
+                            items.add( ImageMessageItem( it.toObject(ImageMessage::class.java), context ) )
+
                         }
 
                     }
