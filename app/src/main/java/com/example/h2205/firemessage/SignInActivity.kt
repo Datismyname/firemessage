@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.example.h2205.firemessage.service.MyFirebaseInstanceIDService
 import com.example.h2205.firemessage.service.MyFirebaseMessagingService
 import com.example.h2205.firemessage.util.FirestoreUtil
 import com.firebase.ui.auth.AuthUI

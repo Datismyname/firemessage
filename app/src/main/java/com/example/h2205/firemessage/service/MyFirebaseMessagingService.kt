@@ -1,16 +1,17 @@
 package com.example.h2205.firemessage.service
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import com.example.h2205.firemessage.util.FirestoreUtil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import org.jetbrains.anko.toast
 
-class MyFirebaseMessagingService: FirebaseMessagingService() {
+class MyFirebaseMessagingService: FirebaseMessagingService(){
 
     override fun onNewToken(newRegistrationToken: String?) {
-        toast("notification!!")
 
         if ( FirebaseAuth.getInstance().currentUser != null ){
 
@@ -21,12 +22,11 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-            toast("notification!!")
-        Log.e("FCM", "FCM message received!")
+
         if ( remoteMessage.notification != null ){
 
-            //TODO: Show Notification
-            Log.e("FCM", "FCM message received!")
+            //TODO: Show Notification if we are not in the chat channel from which the incoming message was sent
+            Log.e("FCM", remoteMessage.data.toString() )
 
         }
 

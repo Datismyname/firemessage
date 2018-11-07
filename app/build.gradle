@@ -5,6 +5,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.h2205.firemessage"
@@ -14,7 +17,6 @@ android {
         versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
@@ -45,10 +47,10 @@ dependencies {
     implementation "org.jetbrains.anko:anko-coroutines:$anko_version"
     //firebase
     implementation 'com.google.firebase:firebase-core:16.0.4'
-    implementation 'com.google.firebase:firebase-firestore:17.1.1'
+    implementation 'com.google.firebase:firebase-firestore:17.1.2'
     implementation 'com.google.firebase:firebase-auth:16.0.5'
     implementation 'com.firebaseui:firebase-ui-auth:3.2.2'
-    implementation 'com.google.firebase:firebase-storage:16.0.3'
+    implementation 'com.google.firebase:firebase-storage:16.0.4'
     implementation 'com.firebaseui:firebase-ui-storage:3.2.2'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'

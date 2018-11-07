@@ -11,6 +11,8 @@ interface Message {
 
     val time: Date
     val senderId: String
+    val reciptientId: String
+    val senderName: String
     val type: String
 
 }
